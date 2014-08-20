@@ -4,10 +4,15 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"strconv"
 )
 
+type Worker interface {
+	Work(id string, fastaChannel chan Fasta, closeChannel chan bool)
+}
+
 func main() {
-	//
+
 	reader := bufio.NewReader(os.Stdin)
 
 	fastaChannel := make(chan Fasta, 100)
@@ -17,24 +22,13 @@ func main() {
 	numWorkers := 12
 
 	for i := 0; i < numWorkers; i++ {
-		go worker(i, fastaChannel, closeChannel)
+		worker := new(PrintWorker)
+		go worker.Work(strconv.Itoa(i), fastaChannel, closeChannel)
 	}
 
 	for i := 0; i < numWorkers; i++ {
 		_ = <-closeChannel
 	}
-}
-
-func worker(id string, fastaChannel chan Fasta, closeChannel chan bool) {
-	for {
-		fa := <-fastaChannel
-		if fa == nil {
-			break
-		}
-		fmt.Println("")
-		fastaPrint(fa)
-	}
-	closeChannel <- true
 }
 
 func fastaPrint(fa Fasta) {
