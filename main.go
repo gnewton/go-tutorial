@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-
+	//
 	reader := bufio.NewReader(os.Stdin)
 
 	fastaChannel := make(chan Fasta, 100)
@@ -25,7 +25,7 @@ func main() {
 	}
 }
 
-func worker(id int, fastaChannel chan Fasta, closeChannel chan bool) {
+func worker(id string, fastaChannel chan Fasta, closeChannel chan bool) {
 	for {
 		fa := <-fastaChannel
 		if fa == nil {
