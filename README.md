@@ -8,6 +8,9 @@ Take entries from channels and give to 12 workers to perform computation on each
  Right now only prints out entry.
 
 Fasta reader not complete:
+========
  * Does not handle `;` starting lines or those that wrap additional lines using `;`
- * Does not fast fail
+ * Does not fast fail https://en.wikipedia.org/wiki/Fail-fast
+
 See https://en.wikipedia.org/wiki/FASTA_format
+
