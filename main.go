@@ -26,9 +26,12 @@ func main() {
 		go worker.Work(strconv.Itoa(i), fastaChannel, resultsChannel)
 	}
 
+	sum := 0
 	for i := 0; i < numWorkers; i++ {
-		fmt.Println(<-resultsChannel)
+		sum += len(<-resultsChannel)
 	}
+
+	fmt.Println("Results: ", sum)
 }
 
 func fastaPrint(fa Fasta) {

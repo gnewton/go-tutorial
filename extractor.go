@@ -39,9 +39,7 @@ func extract(reader *bufio.Reader, fastaChannel chan Fasta) {
 }
 
 func splitLine(line string) (string, string) {
-	log.Print(line)
 	stuff := strings.SplitN(line, " ", 2)
-	log.Print(stuff)
 	if len(stuff) == 1 {
 		return stuff[0][1:], ""
 	} else {
